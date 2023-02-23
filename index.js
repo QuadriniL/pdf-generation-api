@@ -4,23 +4,11 @@ import fs from 'fs';
 import htmlToPdf from 'html-pdf-node';
 import { randomUUID } from 'crypto';
 
-
 const PORT = 3001;
 const app = express();
 
 app.use(express.json());
 
-
-app.get('/:templateId', (req, res) => {
-    const { templateId } = req.params;
-
-    if (!fs.existsSync(`./templates/${templateId}.hbs`))
-        return res.status(404).send('Template not found');
-
-    const file = fs.readFileSync(`./templates/${templateId}.hbs`, 'utf8');
-
-    return res.send(file);
-})
 app.post('/generate', async (req, res) => {
     const reports = req.body;
     let report = '';
